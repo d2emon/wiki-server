@@ -1,0 +1,57 @@
+{
+  "name": "wiki-server",
+  "version": "0.0.0",
+  "description": "Server for wiki pages",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "start:bin": "node src/index.js",
+    "start": "nodemon src/index.js --exec babel-node --presets es2015,stage-2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d2emon/wiki-server.git"
+  },
+  "author": "Dmitry Kutsenko <d2emonium@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/d2emon/wiki-server/issues"
+  },
+  "homepage": "https://github.com/d2emon/wiki-server#readme",
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.10"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-standard": "^4.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "standard",
+      "airbnb"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
+}
