@@ -1,5 +1,6 @@
 import pages from '../models/pages';
 import urlPath from '../helpers/urlPath';
+import { successResponse, errorResponse } from '../helpers/response';
 
 export default (req, res) => {
     const path = urlPath(req);
@@ -7,10 +8,21 @@ export default (req, res) => {
         pages.pages(path),
         pages.folders(path),
     ])
-        .then(([pages, folders]) => res.json({
-            pages,
-            folders,
-        }))
-        .catch(error => res.json({ error }))
+        .then(([pages, folders]) => {
+            const result = [];
+            folders.forEach(name => result.push({
+                name,
+                path: path ? `${path}/${name}` : name,
+                folder: true,
+            }));
+            pages.forEach(name => result.push({
+                name,
+                path: path ? `${path}/${name}` : name,
+                folder: false,
+            }));
+            return result;
+        })
+        .then((result) => res.send(successResponse(result)))
+        .catch(error => res.send(errorResponse(JSON.stringify(error))));
 
 };
