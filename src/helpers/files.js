@@ -1,13 +1,19 @@
 import fs from 'fs';
 
-export const getFiles = folder => new Promise((resolve, reject) => (
-    fs.readdir(folder, (err, files) => {
+export const getFile = filename => new Promise((resolve, reject) => fs
+    .readFile(filename, 'utf8', (err, text) => (err
+        ? reject(err)
+        : resolve(text)
+    ))
+);
+
+export const getFiles = folder => new Promise((resolve, reject) => fs
+    .readdir(folder, (err, files) => (err
+        ? reject(err)
+        : resolve(files)
         // files.filter(file => !file.startsWith('.'))
-        return err
-            ? reject(err)
-            : resolve(files);
-    })
-));
+    ))
+);
 
 export const getFolders = folder => getFiles(folder)
     .then(files => files.filter((file) => {
@@ -17,13 +23,3 @@ export const getFolders = folder => getFiles(folder)
             return false;
         }
     }));
-
-export const getFile = filename => new Promise((resolve, reject) => {
-  return fs.readFile(filename, 'utf8', (err, text) => (err
-    ? reject(err)
-    : resolve({
-      // filename,
-      text,
-    })
-  ))
-});

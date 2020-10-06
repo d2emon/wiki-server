@@ -2,24 +2,25 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import cors from 'cors';
 
 import indexRouter from './routes/index';
 
-// import db from './db/mongo';
-
 const app = express();
 
-app.use(logger('dev'));
-app.use(cors());
+// app.disable('x-powered-by');
+
+app.use(logger('dev', {}));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Content-Type","application/json");
+    next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', () => console.log('MongoDB connected'));
-
-app.use('/api', indexRouter);
+app.use('/wiki', indexRouter);
 
 export default app;
