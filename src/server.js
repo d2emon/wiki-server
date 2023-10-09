@@ -31,19 +31,13 @@ const logErrors = (err, req, res, next) => {
 
 const clientErrorHandler = (err, req, res, next) => {
   if (req.xhr) {
-    return res
-      .status(500)
-      .send(errorResponse(messages.UNKNOWN_TECH_ERROR));
+    return errorResponse(res)(messages.UNKNOWN_TECH_ERROR, 500);
   }
 
   return next(err);
 };
 
-const errorHandler = (err, req, res, next) => {
-  return res
-    .status(500)
-    .send(errorResponse(messages.UNKNOWN_TECH_ERROR));
-};
+const errorHandler = (err, req, res) => errorResponse(res)(messages.UNKNOWN_TECH_ERROR, 500);
 
 app.use(logErrors);
 app.use(clientErrorHandler);

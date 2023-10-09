@@ -1,22 +1,15 @@
 import Debug from 'debug';
 import config from '../config';
 
-export const successResponse = result => JSON.stringify(
-  { result },
-  null,
-  4,
-);
+export const successResponse = res => result => res
+  .json({ result });
 
-export const errorResponse = (message, code = 500) => {
+export const errorResponse = res => (message, code = 500) => {
   Debug(`${config.appName}:error`)(`Error: ${message}`);
-  return JSON.stringify(
-    {
-      error: {
-        code,
-        message,
-      },
+  return res.json({
+    error: {
+      code,
+      message,
     },
-    null,
-    4,
-  );
+  });
 };

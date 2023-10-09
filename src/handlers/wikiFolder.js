@@ -22,6 +22,6 @@ export default (req, res) => {
       }));
       return result;
     })
-    .then(result => res.send(successResponse(result)))
-    .catch(error => res.send(errorResponse(JSON.stringify(error))));
+    .then(successResponse(res))
+    .catch(errorResponse(res));
 };
