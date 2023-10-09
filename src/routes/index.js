@@ -1,31 +1,30 @@
-import express from 'express'
-import pages from '../models/pages'
+import express from 'express';
+import pagesModel from '../models/pages';
+import { errorResponse, successResponse } from '../helpers/response';
 
 const router = express.Router();
 
 /* GET folder contents. */
-router.get('/folder/:path?', (req, res) => {
+router.get('/folder/:path(*)?', (req, res) => {
   const path = req.params.path || req.query.path || '';
   return Promise.all([
-      pages.pages(path),
-      pages.folders(path),
+    pagesModel.pages(path),
+    pagesModel.folders(path),
   ])
-      .then(([pages, folders]) => {
-        return res.json({
-          pages,
-          folders,
-        })
-      })
-      .catch(error => res.json({ error }))
+    .then(([pages, folders]) => ({
+      pages,
+      folders,
+    }))
+    .then(successResponse(res))
+    .catch(errorResponse(res));
 });
 
 /* GET page contents. */
-router.get('/page/:path?', (req, res) => {
+router.get('/page/:path(*)?', (req, res) => {
   const path = req.params.path || req.query.path || '';
-  console.log(path, req.query)
-  return pages.page(path)
-      .then(page => res.json(page))
-      .catch(error => res.json({ error }))
+  return pagesModel.page(path)
+    .then(successResponse(res))
+    .catch(errorResponse(res));
 });
 
 export default router;

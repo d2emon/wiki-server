@@ -1,5 +1,5 @@
-import common from './common';
+import common from './common.json';
 
 export default {
-    ...common,
+  ...common,
 };
