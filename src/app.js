@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
@@ -11,10 +10,10 @@ const app = express();
 
 app.use(logger('dev', {}));
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Content-Type","application/json");
-    next();
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Content-Type', 'application/json');
+  next();
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

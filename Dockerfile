@@ -4,11 +4,20 @@ WORKDIR /app
 
 RUN mkdir /data
 
-COPY ./node_modules /app/node_modules
-COPY ./package*.json /app/
-
+# Packages
+COPY ./package*.json ./
 RUN npm install
 
-COPY ./src /app/src
+# Folders
+COPY src ./src
+COPY data ./data
+COPY public ./public
+
+# Envs
+ENV NODE_PATH ./src
+ENV DEBUG wiki:*
+
+# Port to expose
+EXPOSE 4001
 
 CMD npm run start
